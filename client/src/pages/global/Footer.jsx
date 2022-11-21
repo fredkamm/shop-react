@@ -61,12 +61,12 @@ const Footer = () => {
             Contact Us
           </Typography>
           <Typography mb="30px">
-            50 north Whatever Blvd, Washington, DC 10501
+            50 north Whatever Blvd, Philadelphia, PA 19019
           </Typography>
           <Typography mb="30px" sx={{ wordWrap: "break-word" }}>
-            Email: mredwardroh@gmail.com
+            Email: randomemail@gmail.com
           </Typography>
-          <Typography mb="30px">(222)333-4444</Typography>
+          <Typography mb="30px">(215) 333-4444</Typography>
         </Box>
       </Box>
     </Box>
