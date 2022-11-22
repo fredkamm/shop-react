@@ -7,35 +7,9 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Payment from "./Payment";
 import Shipping from "./Shipping";
-// import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
-// const stripePromise = loadStripe("");
-
-const initialValues = {
-  billingAddress: {
-    firstName: "",
-    lastName: "",
-    country: "",
-    street1: "",
-    street2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  },
-  shippingAddress: {
-    isSameAddress: true,
-    firstName: "",
-    lastName: "",
-    country: "",
-    street1: "",
-    street2: "",
-    city: "",
-    state: "",
-    zipCode: "",
-  },
-  email: "",
-  phoneNumber: "",
-};
+const stripePromise = loadStripe("pk_test_51LnkLHLNSMmSC34MhAnU5jjgtfttWaKzyAhHtegkzRFaPzFpuhzMdtitjOTzYZFD5hPvqZsnkX4CISnADbFRuNPs00E4DATg8q");
 
 const Checkout = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -62,7 +36,7 @@ const Checkout = () => {
   };
 
   async function makePayment(values) {
-    // const stripe = await stripePromise;
+    const stripe = await stripePromise;
     const requestBody = {
       userName: [values.firstName, values.lastName].join(" "),
       email: values.email,
@@ -77,10 +51,11 @@ const Checkout = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
+    console.log("response", response)
     const session = await response.json();
-    // await stripe.redirectToCheckout({
-    //   sessionId: session.id,
-    // });
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
+    });
   }
 
   return (
@@ -169,6 +144,32 @@ const Checkout = () => {
       </Box>
     </Box>
   );
+};
+
+const initialValues = {
+  billingAddress: {
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
+  shippingAddress: {
+    isSameAddress: true,
+    firstName: "",
+    lastName: "",
+    country: "",
+    street1: "",
+    street2: "",
+    city: "",
+    state: "",
+    zipCode: "",
+  },
+  email: "",
+  phoneNumber: "",
 };
 
 // VALIDATION
